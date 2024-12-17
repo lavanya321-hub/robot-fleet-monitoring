@@ -1,0 +1,64 @@
+{
+    "telemetry.machineId": "4fd368a50cab7edf1f493950ad5427e90b9ac12fca180ac55f52481aaf7b6541",
+    "telemetry.sqmId": "{E442D7A4-58A3-4AF3-AF6D-7E4D8A35D2BE}",
+    "telemetry.devDeviceId": "d8120e68-e680-4ef8-a010-08bf437c8586",
+    "backupWorkspaces": {
+        "workspaces": [],
+        "folders": [],
+        "emptyWindows": [
+            {
+                "backupFolder": "1734448185275"
+            }
+        ]
+    },
+    "windowControlHeight": 35,
+    "profileAssociations": {
+        "workspaces": {},
+        "emptyWindows": {
+            "1734448109239": "__default__profile__",
+            "1734448185275": "__default__profile__"
+        }
+    },
+    "windowsState": {
+        "lastActiveWindow": {
+            "backupPath": "C:\\Users\\hs795\\Desktop\\robot-fleet-monitoring\\~\\config\\Code\\User\\global-storage\\gitconfig\\Backups\\1734448185275",
+            "uiState": {
+                "mode": 0,
+                "x": 201,
+                "y": 30,
+                "width": 1024,
+                "height": 720
+            }
+        },
+        "openedWindows": []
+    },
+    "theme": "vs-dark",
+    "themeBackground": "#1f1f1f",
+    "windowSplash": {
+        "zoomLevel": 0,
+        "baseTheme": "vs-dark",
+        "colorInfo": {
+            "foreground": "#cccccc",
+            "background": "#1f1f1f",
+            "editorBackground": "#1f1f1f",
+            "titleBarBackground": "#181818",
+            "titleBarBorder": "#2b2b2b",
+            "activityBarBackground": "#181818",
+            "activityBarBorder": "#2b2b2b",
+            "sideBarBackground": "#181818",
+            "sideBarBorder": "#2b2b2b",
+            "statusBarBackground": "#181818",
+            "statusBarBorder": "#2b2b2b",
+            "statusBarNoFolderBackground": "#1f1f1f"
+        },
+        "layoutInfo": {
+            "sideBarSide": "left",
+            "editorPartMinWidth": 220,
+            "titleBarHeight": 35,
+            "activityBarWidth": 48,
+            "sideBarWidth": 0,
+            "statusBarHeight": 22,
+            "windowBorder": false
+        }
+    }
+}

@@ -1,0 +1,6 @@
+2024-12-17 20:39:28.590 [info] Activation> Extension version: 0.102.0
+2024-12-17 20:39:28.590 [info] TemporaryState> Error in initialization: Unable to delete nonexistent file 'vscode-userdata:/c:/Users/hs795/Desktop/robot-fleet-monitoring/~/config/Code/User/global-storage/gitconfig/User/globalStorage/github.vscode-pull-request-github/temp'
+2024-12-17 20:39:29.071 [info] Looking for git repository
+2024-12-17 20:39:29.071 [info] Found 0 repositories during activation
+2024-12-17 20:39:29.071 [info] Git repository found, initializing review manager and pr tree view.
+2024-12-17 20:39:29.073 [info] Registering git provider

@@ -1,0 +1,40 @@
+2024-12-17 20:41:48.843 [info] Extension host with pid 16300 started
+2024-12-17 20:41:48.843 [info] ExtensionService#_doActivateExtension vscode.github-authentication, startup: false, activationEvent: 'onAuthenticationRequest:github'
+2024-12-17 20:41:48.911 [info] ExtensionService#_doActivateExtension vscode.git-base, startup: true, activationEvent: '*', root cause: vscode.git
+2024-12-17 20:41:48.958 [info] ExtensionService#_doActivateExtension vscode.git, startup: true, activationEvent: '*'
+2024-12-17 20:41:49.811 [info] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+2024-12-17 20:41:53.619 [info] Eager extensions activated
+2024-12-17 20:41:53.903 [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: false, activationEvent: 'onStartupFinished'
+2024-12-17 20:41:53.963 [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+2024-12-17 20:41:54.843 [info] ExtensionService#_doActivateExtension CodeSandbox-io.codesandbox-projects, startup: false, activationEvent: 'onStartupFinished'
+2024-12-17 20:41:57.491 [info] ExtensionService#_doActivateExtension dbaeumer.vscode-eslint, startup: false, activationEvent: 'onStartupFinished'
+2024-12-17 20:41:57.694 [info] ExtensionService#_doActivateExtension formulahendry.code-runner, startup: false, activationEvent: 'onStartupFinished'
+2024-12-17 20:41:58.915 [info] ExtensionService#_doActivateExtension GitHub.vscode-pull-request-github, startup: false, activationEvent: 'onStartupFinished'
+2024-12-17 20:41:59.283 [info] ExtensionService#_doActivateExtension ritwickdey.LiveServer, startup: false, activationEvent: 'onStartupFinished'
+2024-12-17 20:41:59.338 [info] ExtensionService#_doActivateExtension yandeu.five-server, startup: false, activationEvent: 'onStartupFinished'
+2024-12-17 20:42:01.446 [info] Extension host terminating: renderer closed the MessagePort
+2024-12-17 20:42:01.534 [error] ProxyResolver#resolveProxy DIRECT Canceled: Canceled
+	at Fc (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:7:1122)
+	at file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:32:112153
+	at Array.forEach (<anonymous>)
+	at Dy.dispose (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:32:112093)
+	at zz.terminate (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:119:10082)
+	at QC.terminate (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:120:1424)
+	at Zi (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:175:15080)
+	at MessagePortMain.<anonymous> (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:175:11628)
+	at MessagePortMain.emit (node:events:518:28)
+	at MessagePortMain.emit (node:domain:489:12)
+	at MessagePortMain._internalPort.emit (node:electron/js2c/utility_init:2:2949) 
+2024-12-17 20:42:01.534 [error] Canceled: Canceled
+	at Fc (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:7:1122)
+	at file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:32:112153
+	at Array.forEach (<anonymous>)
+	at Dy.dispose (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:32:112093)
+	at zz.terminate (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:119:10082)
+	at QC.terminate (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:120:1424)
+	at Zi (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:175:15080)
+	at MessagePortMain.<anonymous> (file:///c:/Microsoft%20VS%20Code/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:175:11628)
+	at MessagePortMain.emit (node:events:518:28)
+	at MessagePortMain.emit (node:domain:489:12)
+	at MessagePortMain._internalPort.emit (node:electron/js2c/utility_init:2:2949) setContext undefined
+2024-12-17 20:42:01.555 [info] Extension host with pid 16300 exiting with code 0

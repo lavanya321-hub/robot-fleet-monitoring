@@ -1,0 +1,8 @@
+2024-12-17 20:38:31.538 [error] Error: Error mutex already exists
+    at yu.U (file:///C:/Microsoft%20VS%20Code/resources/app/out/main.js:80:29518)
+2024-12-17 20:38:31.570 [info] update#setState idle
+2024-12-17 20:39:01.638 [info] update#setState checking for updates
+2024-12-17 20:39:01.731 [info] update#setState idle
+2024-12-17 20:39:46.018 [info] Extension host with pid 7560 exited with code: 0, signal: unknown.
+2024-12-17 20:39:47.021 [error] Extension host with pid 7560 still exists, forcefully killing it...
+2024-12-17 20:40:44.088 [info] Extension host with pid 10188 exited with code: 0, signal: unknown.

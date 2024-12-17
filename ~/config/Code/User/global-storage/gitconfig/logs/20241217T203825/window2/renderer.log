@@ -1,0 +1,11 @@
+2024-12-17 20:39:47.360 [warning] Via 'product.json#extensionEnabledApiProposals' extension 'ms-vscode.vscode-selfhost-test-provider' wants API proposal 'attributableCoverage' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2024-12-17 20:39:47.362 [warning] Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.python' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2024-12-17 20:39:47.364 [warning] Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.debugpy' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2024-12-17 20:39:47.593 [warning] Creation of workbench contribution 'workbench.contrib.explorerViewletViews' took 26ms.
+2024-12-17 20:39:47.657 [warning] Creation of workbench contribution 'workbench.chat.autoSaveDisabler' took 26ms.
+2024-12-17 20:39:47.712 [warning] Creation of workbench contribution 'workbench.contrib.wslContextKeyInitializer' took 35ms.
+2024-12-17 20:39:50.210 [error] Extension 'ms-vscode.cpptools' wants API proposal 'lmTools' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2024-12-17 20:39:51.467 [error] [xabikos.JavaScriptSnippets]: Unknown language in `contributes.JavaScriptSnippets.language`. Provided value: vue
+2024-12-17 20:39:53.809 [info] Settings Sync: Account status changed from uninitialized to unavailable
+2024-12-17 20:39:55.214 [info] Started local extension host with pid 10188.
+2024-12-17 20:39:58.340 [info] [perf] Render performance baseline is 665ms
