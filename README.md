@@ -7,18 +7,27 @@ The Robot Fleet Monitoring System is a FastAPI-based web application designed to
 
 Features
 Real-time monitoring of robot data.
+
 WebSocket integration for real-time updates.
+
 CORS middleware to enable cross-origin requests.
+
 JSON-based robot data storage.
+
 Secure HTTPS communication using SSL certificates.
 
 Prerequisites
+
 Before you begin, ensure you have the following installed:
 
 Python (version 3.11+)
+
 FastAPI: A web framework to build APIs.
+
 Uvicorn: An ASGI server to run FastAPI applications.
+
 SSL certificates: Necessary for secure communication.
+
 
 ![Screenshot 2024-12-18 204036](https://github.com/user-attachments/assets/3d1bf9ac-77d6-49bc-8c1c-53dab6588c35)
 
@@ -27,10 +36,10 @@ SSL certificates: Necessary for secure communication.
 Installation
 Clone the repository:
 
-bash
-Copy code
 git clone https://github.com/your-username/robot-fleet-monitoring.git
+
 cd robot-fleet-monitoring/backend
+
 Create and activate a virtual environment:
 
 bash
@@ -43,7 +52,6 @@ pip install -r requirements.txt
 Place SSL certificates:
 
 bash
-Copy code
 # Ensure that your SSL certificates are placed at C:/certs/
 # Ensure 'key.pem' and 'cert.pem' exist
 Run the application:
@@ -53,8 +61,7 @@ python app.py
 Configuration
 SSL Configuration: Update the SSL key and certificate paths in app.py if necessary.
 
-python
-Copy code
+'''python
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000, ssl_keyfile="C:/certs/key.pem", ssl_certfile="C:/certs/cert.pem")
 Robot Data File: Ensure that the robot_data.json file exists in C:/data/robot_data.json or update the path accordingly.
