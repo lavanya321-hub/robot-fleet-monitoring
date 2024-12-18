@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RobotMapContainer from "./components/RobotMapContainer";
-import "./index.css"; // Import your CSS file for animations
+import "./index.css"; // Ensure this file includes CSS for animations
 
 function App() {
     const [showMap, setShowMap] = useState(false); // State to toggle view
@@ -24,6 +24,7 @@ function App() {
                         backgroundPosition: "center",
                         color: "blue",
                         textAlign: "center",
+                        animation: "fadeIn 1s", // Fade-in effect
                     }}
                 >
                     <h1 className="scrolling-heading">Welcome to Robot Fleet Monitoring</h1>
@@ -40,13 +41,15 @@ function App() {
                             cursor: "pointer",
                             transition: "background-color 0.3s",
                         }}
+                        onMouseEnter={(e) => (e.target.style.backgroundColor = "#0056b3")}
+                        onMouseLeave={(e) => (e.target.style.backgroundColor = "#007bff")}
                     >
                         Get the Dashboard
                     </button>
                 </div>
             ) : (
                 <div>
-                    <div style={{ overflow: "hidden", width: "100%" }}>
+                    <div style={{ overflow: "hidden", width: "100%", animation: "fadeIn 1s" }}>
                         <h1 className="dashboard-heading">Robot Fleet Monitoring Dashboard</h1>
                     </div>
                     <RobotMapContainer />
@@ -57,35 +60,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-/*import React, { useEffect, useState } from 'react';
-import { RobotMapContainer } from './components/RobotMapContainer'; 
-
-function App() {
-    const [robots, setRobots] = useState([]); // Step 1: Declare state and updater function
-
-    useEffect(() => {
-        // Step 2: Fetch data and update robots state
-        const fetchData = async () => {
-            const response = await fetch('api/robots'); // Replace with your API or data source
-            const data = await response.json();
-            setRobots(data); // Update state with the fetched data
-        };
-
-        fetchData(); // Step 3: Call the fetchData function when component mounts
-    }, []); // Step 4: Dependency array - runs only on mount
-
-    return (
-        <div>
-            <h1>Robot Fleet Monitoring Dashboard</h1>
-            <RobotMapContainer robots={robots} /> {/* Pass robots to the component }
-        </div>
-    );
-}
-
-export default App;  */

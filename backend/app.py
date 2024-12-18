@@ -4,24 +4,10 @@ from pydantic import BaseModel
 from typing import List
 from datetime import datetime
 import random
-import asyncio
 import json
+import asyncio
 
 app = FastAPI()
-
-# Robot schema
-class Robot(BaseModel):
-    robot_id: str
-    online: bool
-    battery_percentage: int
-    cpu_usage: int
-    ram_consumption: int
-    last_updated: str
-    location: List[float]  # Correctly define location as a list of floats
-
-# Load robots from fake_robot_data.json
-with open("fake_robot_data.json") as f:
-    robots = json.load(f)
 
 # CORS middleware
 origins = ["http://localhost:3000"]  # Specify your frontend URL
@@ -33,36 +19,74 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# WebSocket connection to send real-time updates
-@app.websocket("/ws/robots")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        await asyncio.sleep(5)  # Emit every 5 seconds
-        data = []
-        for robot in robots:
-            # Simulate random status updates
-            robot["online"] = random.choice([True, False])
-            robot["battery_percentage"] = random.randint(0, 100)
-            robot["cpu_usage"] = random.randint(0, 100)
-            robot["ram_consumption"] = random.randint(0, 100)
-            robot["last_updated"] = str(datetime.now())
+# Robot schema
+class Robot(BaseModel):
+    robot_id: str
+    online: bool
+    battery_percentage: int
+    cpu_usage: int
+    ram_consumption: int
+    last_updated: str
+    location: List[float]
 
-            # Only send necessary fields
-            data.append({
-                "robot_id": robot["robot_id"],
-                "online": robot["online"],
-                "battery_percentage": robot["battery_percentage"],
-                "cpu_usage": robot["cpu_usage"],
-                "ram_consumption": robot["ram_consumption"],
-                "last_updated": robot["last_updated"],
-                "location": robot["location"],  # Ensure location is correctly serialized
-            })
+# Load robot data from fake_robot_data.json
+try:
+    with open("fake_robot_data.json", "r") as file:
+        robots = json.load(file)
+except FileNotFoundError:
+    print("Error: fake_robot_data.json not found. Using mock data.")
+    robots = [
+        {
+            "robot_id": "robot1",
+            "online": True,
+            "battery_percentage": 90,
+            "cpu_usage": 30,
+            "ram_consumption": 40,
+            "last_updated": str(datetime.now()),
+            "location": [37.7749, -122.4194],
+        },
+        {
+            "robot_id": "robot2",
+            "online": False,
+            "battery_percentage": 10,
+            "cpu_usage": 70,
+            "ram_consumption": 80,
+            "last_updated": str(datetime.now()),
+            "location": [34.0522, -118.2437],
+        },
+    ]
 
-        await websocket.send_json(data)  # Send data as a list of plain objects
 
-
-
+# REST API to get robot data
 @app.get("/robots")
 async def get_robots():
+    """Endpoint to fetch all robot data."""
     return robots
+
+
+# Real-time updates with WebSocket
+@app.websocket("/ws/robots")
+async def websocket_endpoint(websocket: WebSocket):
+    """WebSocket endpoint for real-time robot updates."""
+    await websocket.accept()
+    while True:
+        for robot in robots:
+            # Simulate real-time changes
+            robot["battery_percentage"] = max(0, robot["battery_percentage"] - random.randint(0, 5))
+            robot["cpu_usage"] = random.randint(10, 90)
+            robot["ram_consumption"] = random.randint(1000, 8000)
+            robot["last_updated"] = str(datetime.now())
+
+            # Change online status randomly
+            if random.random() > 0.9:
+                robot["online"] = not robot["online"]
+
+        # Send updated data
+        await websocket.send_json(robots)
+        await asyncio.sleep(5)  # Emit updates every 5 seconds
+
+
+# Startup event to log backend readiness
+@app.on_event("startup")
+async def on_startup():
+    print("Backend is running and ready to serve requests.")

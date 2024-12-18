@@ -3,43 +3,37 @@
     height: 100vh; /* Full viewport height */
     width: 100%;   /* Full width */
 }
-@keyframes scrollHorizontally {
-    0% {
-        transform: translateX(100%); /* Start off-screen to the right */
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
     }
-    100% {
-        transform: translateX(-100%); /* End off-screen to the left */
+    to {
+        opacity: 1;
     }
 }
 
-.dashboard-heading {
-    font-family: 'Poppins', sans-serif; /* Modern font */
-    font-size: 2.5rem; /* Font size */
-    color: green; /* Text color */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Text shadow for readability */
-    white-space: nowrap; /* Prevent text wrapping */
-    overflow: hidden; /* Hide the text outside its container */
-    width: 100%; /* Full width */
-    text-align: center; /* Center the heading inside the container */
-    animation: scrollHorizontally 10s linear infinite; /* Apply animation */
-    padding: 20px; /* Add padding around text */
-}
-
+/* Scrolling text effect */
 .scrolling-heading {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    display: inline-block;
-    animation: scroll-text 10s linear infinite; /* 10s for a full loop */
+    color: #007bff;
+    animation: scrollingText 5s infinite linear;
 }
 
-@keyframes scroll-text {
+@keyframes scrollingText {
     0% {
-        transform: translateX(100%); /* Start off-screen to the right */
+        transform: translateX(-100%);
     }
     100% {
-        transform: translateX(-100%); /* Move off-screen to the left */
+        transform: translateX(100%);
     }
 }
 
+/* Dashboard heading styling */
+.dashboard-heading {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin: 20px 0;
+}

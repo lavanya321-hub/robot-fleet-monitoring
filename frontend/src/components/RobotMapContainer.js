@@ -1,164 +1,101 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import L from "leaflet";
-import "leaflet/dist/leaflet.css"; // Core Leaflet styles
-import "leaflet.markercluster/dist/MarkerCluster.css"; // MarkerCluster styles
-import "leaflet.markercluster/dist/MarkerCluster.Default.css"; // MarkerCluster Default styles
-import "leaflet.markercluster/dist/leaflet.markercluster.js"; // MarkerCluster script
+import "leaflet/dist/leaflet.css";
+
+// Define custom icon for online and offline robots
+const getIcon = (status, battery) => {
+    let iconUrl = "";
+    if (status) {
+        // Online robots - Green icon
+        iconUrl = "/icons/online-icon.png"; // Replace with your online icon path
+    } else {
+        // Offline robots - Red icon
+        iconUrl = "/icons/offline-icon.png"; // Replace with your offline icon path
+    }
+
+    return L.icon({
+        iconUrl,
+        iconSize: [25, 41], // Size of the icon
+        iconAnchor: [12, 41], // Point of the icon that will correspond to marker's location
+    });
+};
 
 const RobotMapContainer = () => {
-    const [robots, setRobots] = useState([]);
+    const [robots, setRobots] = useState([]); // State to hold robot data
+    const mapRef = useRef(null); // Ref to hold Leaflet map instance
 
-    // Fetch robot data from the backend
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/robots")
+        // Fetch robots data initially
+        fetch("http://localhost:8000/robots")
             .then((response) => response.json())
             .then((data) => setRobots(data))
             .catch((error) => console.error("Error fetching robots data:", error));
     }, []);
 
     useEffect(() => {
-        if (!L.map || robots.length === 0) return;
+        // Setup WebSocket for real-time updates
+        const socket = new WebSocket("wss://localhost:8000/ws/robots");
 
-        // Initialize the Leaflet map
-        const map = L.map("map").setView([0, 0], 2);
+        socket.onopen = () => {
+            console.log("WebSocket connected.");
+        };
 
-        // Add OpenStreetMap tile layer
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: "&copy; OpenStreetMap contributors",
-        }).addTo(map);
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data); // Parse incoming data
+            console.log("WebSocket data received:", data);
+            setRobots(data); // Update the robots state
+        };
 
-        // Initialize marker cluster group
-        const markers = L.markerClusterGroup();
+        socket.onerror = (error) => {
+            console.error("WebSocket error:", error);
+        };
 
-        // Define custom icons
-        const onlineIcon = L.icon({
-            iconUrl: "/icons/online-icon.png",
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [0, -30],
-        });
+        socket.onclose = () => {
+            console.log("WebSocket disconnected.");
+        };
 
-        const offlineIcon = L.icon({
-            iconUrl: "/icons/offline-icon.png",
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [0, -30],
-        });
+        return () => socket.close(); // Cleanup WebSocket on component unmount
+    }, []);
 
-        const lowBatteryIcon = L.icon({
-            iconUrl: "/icons/robot-icon.png",
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [0, -30],
-        });
+    useEffect(() => {
+        if (!mapRef.current) {
+            // Initialize the map only once
+            mapRef.current = L.map("map").setView([0, 0], 2);
 
-        // Add markers for each robot
-        robots.forEach((robot) => {
-            const { location, "Robot ID": id, "Online/Offline": online, "Battery Percentage": battery } = robot;
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: "&copy; OpenStreetMap contributors",
+            }).addTo(mapRef.current);
+        }
 
-            if (location && location.length === 2) {
-                const icon = !online
-                    ? offlineIcon
-                    : battery < 20
-                    ? lowBatteryIcon
-                    : onlineIcon;
-
-                const marker = L.marker(location, { icon });
-
-                // Bind a popup with robot details
-                marker.bindPopup(
-                    `<strong>ID:</strong> ${id}<br>
-                     <strong>Status:</strong> ${online ? "Online" : "Offline"}<br>
-                     <strong>Battery:</strong> ${battery}%`
-                );
-
-                markers.addLayer(marker);
+        // Clear existing markers
+        mapRef.current.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+                mapRef.current.removeLayer(layer);
             }
         });
 
-        // Add marker cluster group to the map
-        map.addLayer(markers);
+        // Add markers for robots
+        robots.forEach((robot) => {
+            const {
+                "Robot ID": id,
+                "Location Coordinates": coordinates,
+                "Online/Offline": status,
+                "Battery Percentage": battery,
+            } = robot;
 
-        // Cleanup map instance on component unmount
-        return () => {
-            map.remove();
-        };
+            if (coordinates && coordinates.length === 2) {
+                L.marker(coordinates, { icon: getIcon(status, battery) })
+                    .addTo(mapRef.current)
+                    .bindPopup(`
+                        <strong>ID:</strong> ${id}<br>
+                        <strong>Status:</strong> ${status ? "Online" : "Offline"}<br>
+                        <strong>Battery:</strong> ${battery}%
+                    `);
+            }
+        });
     }, [robots]);
 
     return <div id="map" style={{ height: "500px", width: "100%" }}></div>;
 };
 
 export default RobotMapContainer;
-
-/*import React, { useEffect, useState } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css"; // For Leaflet core CSS
-import "leaflet.markercluster/dist/MarkerCluster.css"; // Correct path for MarkerCluster CSS
-import "leaflet.markercluster/dist/MarkerCluster.Default.css"; // For MarkerCluster Default CSS
-import "leaflet.markercluster/dist/leaflet.markercluster.js"; // JS file for clustering
-
-
-const RobotMapContainer = () => {
-    const [robots, setRobots] = useState([]);
-
-    useEffect(() => {
-        fetch("http://127.0.0.1:8000/robots")
-            .then((response) => response.json())
-            .then((data) => setRobots(data))
-            .catch((error) => console.error("Error fetching robots data:", error));
-    }, []);
-    
-    
-
-    useEffect(() => {
-        if (!L.map || robots.length === 0) return;
-    
-        console.log("Rendering markers for robots:", robots);
-    
-        const map = L.map("map").setView([0, 0], 2);
-    
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: "&copy; OpenStreetMap contributors",
-        }).addTo(map);
-    
-        const markers = L.markerClusterGroup();
-    
-        robots.forEach((robot) => {
-            console.log("Processing robot:", robot); // Log each robot
-    
-            if (robot["Location Coordinates"] && robot["Location Coordinates"].length === 2) {
-                const marker = L.marker(robot["Location Coordinates"], {
-                    icon: L.icon({
-                        iconUrl: robot["Online/Offline"]
-                            ? "/icons/online-icon.png"
-                            : "/icons/offline-icon.png",
-                        iconSize: [25, 41],
-                        iconAnchor: [12, 41],
-                        popupAnchor: [0, -30],
-                    }),
-                });
-    
-                marker.bindPopup(
-                    `<strong>ID:</strong> ${robot["Robot ID"]}<br>
-                     <strong>Status:</strong> ${robot["Online/Offline"] ? "Online" : "Offline"}<br>
-                     <strong>Battery:</strong> ${robot["Battery Percentage"]}%`
-                );
-    
-                markers.addLayer(marker);
-            } else {
-                console.error("Invalid robot data:", robot);
-            }
-        });
-    
-        map.addLayer(markers);
-    
-        return () => {
-            map.remove();
-        };
-    }, [robots]);
-    
-
-    return <div id="map" style={{ height: "500px", width: "100%" }}></div>;
-};
-
-export default RobotMapContainer;*/

@@ -1,7 +1,31 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+
+// Import or specify custom icon images
+import onlineIconImage from "./path/to/online-icon.png";
+import offlineIconImage from "./path/to/offline-icon.png";
+
+// Define custom icons
+const onlineIcon = new L.Icon({
+    iconUrl: onlineIconImage,
+    iconSize: [25, 41], // Adjust size as needed
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+    shadowSize: [41, 41],
+});
+
+const offlineIcon = new L.Icon({
+    iconUrl: offlineIconImage,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+    shadowSize: [41, 41],
+});
 
 const RobotMap = () => {
     const [robots, setRobots] = useState([]); // State to hold robots data
@@ -29,7 +53,6 @@ const RobotMap = () => {
             const data = JSON.parse(event.data); // Parse incoming data
             console.log("WebSocket data received:", data);
             setRobots(data); // Update the state with WebSocket data
-            console.log("Updated robots state:", data); 
         };
 
         socket.onerror = (error) => {
@@ -43,11 +66,20 @@ const RobotMap = () => {
         return () => socket.close(); // Cleanup the WebSocket on component unmount
     }, []);
 
+    const mapCenter = [ 
+        robots.length > 0 ? robots[0]["Location Coordinates"][0] : 0, 
+        robots.length > 0 ? robots[0]["Location Coordinates"][1] : 0 
+    ];
+
     return (
-        <MapContainer center={[0, 0]} zoom={2} style={{ height: "500px", width: "100%" }}>
+        <MapContainer center={mapCenter} zoom={5} style={{ height: "500px", width: "100%" }}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             {robots.map((robot) => (
-                <Marker key={robot["Robot ID"]} position={robot["Location Coordinates"]}>
+                <Marker
+                    key={robot["Robot ID"]}
+                    position={robot["Location Coordinates"]}
+                    icon={robot["Online/Offline"] ? onlineIcon : offlineIcon} // Assign custom icon based on status
+                >
                     <Popup>
                         <strong>ID:</strong> {robot["Robot ID"]}
                         <br />
