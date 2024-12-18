@@ -66,9 +66,11 @@ WebSocket Endpoint
 The application provides a WebSocket endpoint at /ws/robots for real-time updates.
 
 python
-Copy code
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+
 from fastapi.middleware.cors import CORSMiddleware
+
 from typing import List
 import json
 import uvicorn
@@ -117,6 +119,7 @@ Copy code
     "Location Coordinates": [13.700687, -50.895561]
   }
 ]
+
 Troubleshooting
 FileNotFoundError: Ensure the robot_data.json file exists at the specified location.
 WebSocket Errors: Ensure the WebSocket server is running, and there are no CORS-related issues.
