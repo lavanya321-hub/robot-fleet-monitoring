@@ -34,13 +34,11 @@ cd robot-fleet-monitoring/backend
 Create and activate a virtual environment:
 
 bash
-Copy code
 python -m venv env
 source env/bin/activate  # For Windows use `env\Scripts\activate`
 Install the dependencies:
 
 bash
-Copy code
 pip install -r requirements.txt
 Place SSL certificates:
 
@@ -51,7 +49,6 @@ Copy code
 Run the application:
 
 bash
-Copy code
 python app.py
 Configuration
 SSL Configuration: Update the SSL key and certificate paths in app.py if necessary.
@@ -68,9 +65,7 @@ The application provides a WebSocket endpoint at /ws/robots for real-time update
 python
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-
 from fastapi.middleware.cors import CORSMiddleware
-
 from typing import List
 import json
 import uvicorn
@@ -98,7 +93,6 @@ Robot Data Format
 The robot data is expected to be in the following format in robot_data.json:
 
 json
-Copy code
 [
   {
     "Robot ID": "63e06a27-8fb5-49b6-afdd-555d6a01f131",
