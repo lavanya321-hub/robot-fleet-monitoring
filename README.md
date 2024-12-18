@@ -1,4 +1,5 @@
 Robot Fleet Monitoring Dashboard
+
 Overview
 The Robot Fleet Monitoring System is a FastAPI-based web application designed to monitor and display the status of robots in a fleet. It provides real-time information such as the battery percentage, CPU usage, RAM consumption, and location coordinates of each robot via a WebSocket connection.
 ![Screenshot 2024-12-18 202729](https://github.com/user-attachments/assets/e6310bd5-f5bc-43ed-b6f5-e7c6c1be62a6)
